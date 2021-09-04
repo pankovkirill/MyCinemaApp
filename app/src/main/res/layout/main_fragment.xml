@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <TextView
-        android:text="Лучшее"
+        android:text="@string/firstHeader"
         android:textSize="30sp"
         android:layout_margin="5dp"
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         tools:listitem="@layout/fragment_main_recycler_item" />
 
     <TextView
-        android:text="Скоро на экранах"
+        android:text="@string/secondHeader"
         android:textSize="30sp"
         android:layout_margin="5dp"
         android:layout_width="wrap_content"
