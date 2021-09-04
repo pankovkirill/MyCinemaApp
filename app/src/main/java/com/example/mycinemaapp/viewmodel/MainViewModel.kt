@@ -17,18 +17,14 @@ class MainViewModel : ViewModel() {
     val liveData: LiveData<AppState> = liveDataToObserve
 
     fun getCinemaFromLocalSource() = getDataFromLocalSource()
-    fun getCinemaFromRemoteSource() = getDataFromLocalSource()
 
     private fun getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading
 
         Thread {
-            sleep(5000)
-            if (Random.nextBoolean()) {
-                liveDataToObserve.postValue(AppState.Success(repository.getCinemaFromLocalStorage()))
-            } else {
-                liveDataToObserve.postValue(AppState.Error(Exception("Нет доступа к интернету")))
-            }
+            sleep(1000)
+            liveDataToObserve.postValue(AppState.SuccessBest(repository.getCinemaFromLocalStorageBest()))
+            liveDataToObserve.postValue(AppState.SuccessUpcoming(repository.getCinemaFromLocalStorageUpcoming()))
         }.start()
     }
 }
