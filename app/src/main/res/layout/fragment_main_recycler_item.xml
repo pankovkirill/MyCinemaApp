@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_weight="1"
-        android:background="@drawable/odinplusodin" />
+        tools:src="@drawable/ynesennieprizrak"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

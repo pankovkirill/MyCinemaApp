@@ -14,8 +14,7 @@
         <ImageView
             android:id="@+id/detailsFragmentImageView"
             android:layout_width="wrap_content"
-            android:layout_height="400dp"
-            android:background="@drawable/nachalo" />
+            android:layout_height="400dp" />
 
         <TextView
             android:id="@+id/film"

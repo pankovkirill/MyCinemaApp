@@ -28,15 +28,15 @@ class DetailsFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val cinema = arguments?.getParcelable<Cinema>(BUNDLE_EXTRA)
-        if (cinema != null) {
-            val film = cinema.film
-            binding.film.text = film.film
-            binding.genre.text = film.genre
-            binding.year.text = film.year.toString()
+        arguments?.getParcelable<Cinema>(BUNDLE_EXTRA)?.let { cinema ->
+            cinema.film.also { film ->
+                binding.detailsFragmentImageView.setImageResource(film.filmImage)
+                binding.film.text = film.film
+                binding.genre.text = film.genre
+                binding.year.text = film.year.toString()
+                binding.description.text = film.description
+            }
             binding.rating.text = cinema.rating.toString()
-            binding.description.text = film.description
         }
     }
 
