@@ -43,7 +43,7 @@ class UpcomingAdapter(private var onItemViewClickListener: MainFragment.OnItemVi
         fun bind(cinema: Cinema) {
             itemView.apply {
                 findViewById<TextView>(R.id.recyclerItemFilm).text = cinema.film.film
-                findViewById<TextView>(R.id.recyclerItemRating).text = cinema.rating.toString()
+                findViewById<TextView>(R.id.recyclerItemDate).text = cinema.film.year.toString()
                 findViewById<ImageView>(R.id.imageView).setImageResource(cinema.film.filmImage)
                 setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(cinema)

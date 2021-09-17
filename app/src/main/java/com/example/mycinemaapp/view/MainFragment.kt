@@ -12,6 +12,7 @@ import com.example.mycinemaapp.viewmodel.AppState
 import com.example.mycinemaapp.viewmodel.MainViewModel
 import com.example.mycinemaapp.databinding.MainFragmentBinding
 import com.example.mycinemaapp.model.Cinema
+import com.example.mycinemaapp.viewmodel.CinemaType
 import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
@@ -79,22 +80,18 @@ class MainFragment : Fragment() {
         viewModel.liveData.observe(viewLifecycleOwner, { appState ->
             renderData(appState)
         })
-
-        viewModel.getCinemaFromLocalSource()
     }
 
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Loading -> binding.loadingLayout.show()
-            is AppState.SuccessBest -> {
+            is AppState.Success -> {
                 binding.loadingLayout.hide()
-                binding.textViewBest.text = "Лучшее"
-                binding.textViewUpcoming.text = "Скоро на экранах"
-                adapter.setCinema(appState.cinemaData)
-            }
-            is AppState.SuccessUpcoming -> {
-                binding.loadingLayout.hide()
-                adapterUpcoming.setCinema(appState.cinemaData)
+                if (appState.type == CinemaType.BEST) {
+                    adapter.setCinema(appState.cinemaData)
+                } else {
+                    adapterUpcoming.setCinema(appState.cinemaData)
+                }
             }
             is AppState.Error -> {
                 binding.loadingLayout.hide()

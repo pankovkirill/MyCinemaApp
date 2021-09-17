@@ -22,9 +22,9 @@ class MainViewModel : ViewModel() {
         liveDataToObserve.value = AppState.Loading
 
         Thread {
-            sleep(5000)
-            liveDataToObserve.postValue(AppState.SuccessBest(repository.getCinemaFromLocalStorageBest()))
-            liveDataToObserve.postValue(AppState.SuccessUpcoming(repository.getCinemaFromLocalStorageUpcoming()))
+            sleep(1000)
+            liveDataToObserve.postValue(AppState.Success(repository.getCinemaFromLocalStorageUpcoming(), CinemaType.UPCOMING))
+            liveDataToObserve.postValue(AppState.Success(repository.getCinemaFromLocalStorageBest(), CinemaType.BEST))
         }.start()
     }
 }
