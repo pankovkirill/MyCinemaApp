@@ -1,18 +1,20 @@
 package com.example.mycinemaapp.model
 
 import android.os.Parcelable
-import com.example.mycinemaapp.view.showSnackBar
 import kotlinx.android.parcel.Parcelize
-import java.util.ArrayList
 
 @Parcelize
 data class CinemaDTO(
-    val original_title: String?,
-    val overview: String?,
-    val genres: Array<GenresDTO?>,
-    val release_date: String?
-):Parcelable
-@Parcelize
-data class GenresDTO(
-    val name: String?
-):Parcelable
+    val page: Int,
+    val results: List<CinemaPreview>,
+    val total_pages: Int,
+    val total_results: Int
+) : Parcelable {
+    @Parcelize
+    data class CinemaPreview(
+        val id: Int =1,
+        val release_date: String = "",
+        val title: String = "",
+        val vote_average: Float = 0.0F,
+    ) : Parcelable
+}

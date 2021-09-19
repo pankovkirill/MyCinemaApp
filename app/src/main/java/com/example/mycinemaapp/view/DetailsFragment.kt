@@ -1,10 +1,7 @@
 package com.example.mycinemaapp.view
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,33 +10,21 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.example.mycinemaapp.R
 import com.example.mycinemaapp.databinding.FragmentDetailsBinding
-import com.example.mycinemaapp.model.Cinema
 import com.example.mycinemaapp.model.CinemaDTO
-import com.example.mycinemaapp.model.CinemaLoader
+import com.example.mycinemaapp.model.CinemaDetailsDTO
+import com.example.mycinemaapp.model.CinemaLoaderById
 import com.example.mycinemaapp.viewmodel.MainViewModel
-import com.google.gson.Gson
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.lang.Exception
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
-import java.util.stream.Collector
-import java.util.stream.Collectors
-import javax.net.ssl.HttpsURLConnection
 
 class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var cinemaBundle: Cinema
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
-    private val onLoadListener: CinemaLoader.CinemaLoaderListener =
-        object : CinemaLoader.CinemaLoaderListener {
-            override fun onLoaded(cinemaDTO: CinemaDTO) {
-                displayCinema(cinemaDTO)
+    private lateinit var cinemaBundle: CinemaDTO.CinemaPreview
+
+    private val onLoadListener: CinemaLoaderById.CinemaLoaderListener =
+        object : CinemaLoaderById.CinemaLoaderListener {
+            override fun onLoaded(cinemaDetailsDTO: CinemaDetailsDTO) {
+                displayCinema(cinemaDetailsDTO)
             }
 
             override fun onFailed(throwable: Throwable) {
@@ -65,34 +50,31 @@ class DetailsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cinemaBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: Cinema()
+        cinemaBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: CinemaDTO.CinemaPreview()
 
-        binding.mainView.hide()
-        binding.loadingLayout.show()
+        binding.mainView.show()
+        binding.loadingLayout.hide()
 
-        val loader = CinemaLoader(onLoadListener, cinemaBundle.id)
+        val loader = CinemaLoaderById(onLoadListener, cinemaBundle.id)
         loader.loadCinema()
     }
 
-    private fun displayCinema(cinemaDTO: CinemaDTO) {
+    private fun displayCinema(cinemaDetailsDTO: CinemaDetailsDTO) {
         with(binding) {
             mainView.show()
             loadingLayout.hide()
             detailsFragmentImageView.setImageResource(R.drawable.empty)
-            detailsFragmentFilm.text = cinemaDTO.original_title
-            for (element in cinemaDTO.genres) {
+            detailsFragmentFilm.text = cinemaDetailsDTO.title
+            for (element in cinemaDetailsDTO.genres) {
                 detailsFragmentGenre.text = "${detailsFragmentGenre.text}" + "${element?.name} "
             }
-            detailsFragmentYear.text = cinemaDTO.release_date?.substringBefore("-")
-            detailsFragmentDescription.text = cinemaDTO.overview
-            detailsFragmentIdFilm.text = cinemaBundle.id.toString()
+            detailsFragmentYear.text = cinemaDetailsDTO.release_date?.substringBefore("-")
+            detailsFragmentDescription.text = cinemaDetailsDTO.overview
         }
     }
 
     companion object {
-
         const val BUNDLE_EXTRA = "cinema"
-
         fun newInstance(bundle: Bundle): DetailsFragment {
             val fragment = DetailsFragment()
             fragment.arguments = bundle
