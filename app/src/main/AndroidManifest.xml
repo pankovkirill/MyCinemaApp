@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.example.mycinemaapp.view.DetailsService" />
+        <service android:name="com.example.mycinemaapp.model.DetailsService" />
     </application>
 
 </manifest>
