@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.main
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -44,18 +44,19 @@ class TopCinemaAdapter(private var onItemViewClickListener: MainFragment.OnItemV
     inner class TopViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         @RequiresApi(Build.VERSION_CODES.N)
         fun bind(cinemaDTO: CinemaDTO.CinemaPreview) {
-            itemView.apply {
-                findViewById<TextView>(R.id.recyclerItemFilm).text = cinemaDTO.title
-                findViewById<TextView>(R.id.recyclerItemDate).text =
-                    cinemaDTO.release_date?.substringBefore("-")
-                findViewById<TextView>(R.id.recyclerItemAverage).text =
-                    cinemaDTO.vote_average.toString()
-                findViewById<ImageView>(R.id.imageView).load("https://image.tmdb.org/t/p/w500/${cinemaDTO.poster_path}")
-
-                setOnClickListener {
-                    onItemViewClickListener?.onItemViewClick(cinemaDTO)
+            if (!cinemaDTO.adult) {
+                itemView.apply {
+                    findViewById<TextView>(R.id.recyclerItemFilm).text = cinemaDTO.title
+                    findViewById<TextView>(R.id.recyclerItemDate).text =
+                        cinemaDTO.release_date.substringBefore("-")
+                    findViewById<TextView>(R.id.recyclerItemAverage).text =
+                        cinemaDTO.vote_average.toString()
+                    findViewById<ImageView>(R.id.imageView).load("https://image.tmdb.org/t/p/w500/${cinemaDTO.poster_path}")
+                    setOnClickListener {
+                        onItemViewClickListener?.onItemViewClick(cinemaDTO)
+                    }
                 }
-            }
+            } else itemView.visibility = View.GONE
         }
     }
 }

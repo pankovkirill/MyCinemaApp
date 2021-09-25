@@ -12,6 +12,7 @@ data class CinemaDTO(
 ) : Parcelable {
     @Parcelize
     data class CinemaPreview(
+        val adult: Boolean = false,
         val id: Int =1,
         val release_date: String = "",
         val title: String = "",

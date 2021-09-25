@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/itemContainerMain"
     android:layout_width="133dp"
-    android:layout_height="300dp"
+    android:layout_height="275dp"
     android:layout_margin="10dp"
     android:background="@drawable/background_for_item"
     android:orientation="vertical">
@@ -19,7 +19,7 @@
         android:id="@+id/recyclerItemFilm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lines="3"
+        android:lines="2"
         android:paddingStart="5dp"
         android:textSize="20sp"
         android:textStyle="bold"

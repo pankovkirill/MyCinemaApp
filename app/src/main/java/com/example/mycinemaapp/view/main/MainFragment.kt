@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.main
 
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
@@ -8,18 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.navigation.fragment.findNavController
 import com.example.mycinemaapp.R
 import com.example.mycinemaapp.viewmodel.AppState
 import com.example.mycinemaapp.viewmodel.MainViewModel
 import com.example.mycinemaapp.databinding.MainFragmentBinding
 import com.example.mycinemaapp.model.CinemaDTO
 import com.example.mycinemaapp.model.CinemaType
+import com.example.mycinemaapp.view.*
+import com.example.mycinemaapp.view.details.DetailsFragment
 
 class MainFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
@@ -30,26 +29,20 @@ class MainFragment : Fragment() {
 
     private val topCinemaAdapter = TopCinemaAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(cinemaDTO: CinemaDTO.CinemaPreview) {
-            activity?.supportFragmentManager?.apply {
-                beginTransaction()
-                        .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-                            putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
-                        }))
-                        .addToBackStack("")
-                        .commitAllowingStateLoss()
+            activity?.supportFragmentManager.let {
+                val bundle = Bundle()
+                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
+                findNavController().navigate(R.id.detailsFragment, bundle)
             }
         }
     })
 
     private val newCinemaAdapter = NewCinemaAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(cinemaDTO: CinemaDTO.CinemaPreview) {
-            activity?.supportFragmentManager?.apply {
-                beginTransaction()
-                        .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-                            putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
-                        }))
-                        .addToBackStack("")
-                        .commitAllowingStateLoss()
+            activity?.supportFragmentManager.let {
+                val bundle = Bundle()
+                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
+                findNavController().navigate(R.id.detailsFragment, bundle)
             }
         }
     })
@@ -61,9 +54,9 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -75,8 +68,8 @@ class MainFragment : Fragment() {
         binding.mainFragmentRecyclerViewTop.adapter = topCinemaAdapter
         binding.mainFragmentRecyclerViewNew.adapter = newCinemaAdapter
 
-        viewModel.topCinemaToObserve.observe(viewLifecycleOwner, {renderData(it)})
-        viewModel.newCinemaToObserve.observe(viewLifecycleOwner, {renderData(it)})
+        viewModel.topCinemaToObserve.observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.newCinemaToObserve.observe(viewLifecycleOwner, { renderData(it) })
         viewModel.getCinema()
     }
 
@@ -103,9 +96,9 @@ class MainFragment : Fragment() {
                 binding.mainView.hide()
                 binding.loadingLayout.show()
                 binding.loadingLayout.showSnackBar(
-                        "Error: ${appState.error}",
-                        "Reload",
-                        { viewModel.getCinema() }
+                    "Error: ${appState.error}",
+                    "Reload",
+                    { viewModel.getCinema() }
                 )
             }
         }

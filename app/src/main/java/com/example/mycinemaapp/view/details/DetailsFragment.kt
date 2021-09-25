@@ -1,24 +1,23 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.details
 
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 
-import com.example.mycinemaapp.BuildConfig
 import com.example.mycinemaapp.R
 import com.example.mycinemaapp.databinding.FragmentDetailsBinding
 import com.example.mycinemaapp.model.*
+import com.example.mycinemaapp.view.hide
+import com.example.mycinemaapp.view.show
+import com.example.mycinemaapp.view.showSnackBar
 import com.example.mycinemaapp.viewmodel.AppState
 
 import com.example.mycinemaapp.viewmodel.DetailsViewModel
-import retrofit2.Response.error
 
 class DetailsFragment : Fragment() {
 
@@ -82,10 +81,10 @@ class DetailsFragment : Fragment() {
                 textViewGenre.text = "${textViewGenre.text}" + "${element?.name} "
             }
             textViewAverage.text = cinemaDetailsDTO.vote_average.toString()
-            textViewRuntime.text = cinemaDetailsDTO.runtime.toString() + " мин."
-            textViewRevenue.text = cinemaDetailsDTO.revenue.toString() + "$"
+            textViewRuntime.text = cinemaDetailsDTO.runtime.toString() + getString(R.string.textRuntime)
+            textViewRevenue.text = cinemaDetailsDTO.revenue.toString() + getString(R.string.textRevenue)
             if (cinemaDetailsDTO.budget > 0) {
-                textViewBudget.text = cinemaDetailsDTO.budget.toString() + "$"
+                textViewBudget.text = cinemaDetailsDTO.budget.toString() + getString(R.string.textRevenue)
             }
             for (element in cinemaDetailsDTO.production_companies) {
                 textViewCompany.text = "${textViewOriginCountry.text}" + "${element.name} "
