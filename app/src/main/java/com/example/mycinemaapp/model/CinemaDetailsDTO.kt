@@ -7,27 +7,25 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class CinemaDetailsDTO(
     val budget: Int,
-    val genres: @RawValue List<Genre>,
-    val homepage: String,
+    val genres: @RawValue ArrayList<Genre>,
     val id: Int,
-    val original_language: String,
-    val original_title: String,
     val overview: String,
-    val production_companies: @RawValue List<ProductionCompany>,
+    val production_companies: @RawValue ArrayList<ProductionCompany>,
     val release_date: String,
     val revenue: Int,
     val runtime: Int,
     val title: String,
     val vote_average: Double
-) : Parcelable {
-    data class Genre(
-        val id: Int,
-        val name: String
-    )
+) : Parcelable
 
-    data class ProductionCompany(
-        val id: Int,
-        val name: String,
-        val origin_country: String
-    )
-}
+@Parcelize
+data class Genre(
+    val id: Int = 0,
+    val name: String = ""
+) : Parcelable
+
+@Parcelize
+data class ProductionCompany(
+    val name: String,
+    val origin_country: String
+) : Parcelable
