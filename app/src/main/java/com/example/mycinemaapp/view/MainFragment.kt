@@ -1,18 +1,19 @@
 package com.example.mycinemaapp.view
 
-import android.content.res.TypedArray
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import com.example.mycinemaapp.R
 import com.example.mycinemaapp.viewmodel.AppState
 import com.example.mycinemaapp.viewmodel.MainViewModel
 import com.example.mycinemaapp.databinding.MainFragmentBinding
-import com.example.mycinemaapp.model.Cinema
-import com.google.android.material.snackbar.Snackbar
+import com.example.mycinemaapp.model.CinemaDTO
+import com.example.mycinemaapp.model.CinemaType
 
 class MainFragment : Fragment() {
 
@@ -23,15 +24,16 @@ class MainFragment : Fragment() {
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
+
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter = MainAdapter(object : OnItemViewClickListener {
-        override fun onItemViewClick(cinema: Cinema) {
+    private val topCinemaAdapter = TopCinemaAdapter(object : OnItemViewClickListener {
+        override fun onItemViewClick(cinemaDTO: CinemaDTO.CinemaPreview) {
             activity?.supportFragmentManager?.apply {
                 beginTransaction()
                     .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-                        putParcelable(DetailsFragment.BUNDLE_EXTRA, cinema)
+                        putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
                     }))
                     .addToBackStack("")
                     .commitAllowingStateLoss()
@@ -39,12 +41,12 @@ class MainFragment : Fragment() {
         }
     })
 
-    private val adapterUpcoming = UpcomingAdapter(object : OnItemViewClickListener {
-        override fun onItemViewClick(cinema: Cinema) {
+    private val newCinemaAdapter = NewCinemaAdapter(object : OnItemViewClickListener {
+        override fun onItemViewClick(cinemaDTO: CinemaDTO.CinemaPreview) {
             activity?.supportFragmentManager?.apply {
                 beginTransaction()
                     .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-                        putParcelable(DetailsFragment.BUNDLE_EXTRA, cinema)
+                        putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
                     }))
                     .addToBackStack("")
                     .commitAllowingStateLoss()
@@ -53,8 +55,8 @@ class MainFragment : Fragment() {
     })
 
     override fun onDestroy() {
-        adapter.removeListener()
-        adapterUpcoming.removeListener()
+        topCinemaAdapter.removeListener()
+        newCinemaAdapter.removeListener()
         super.onDestroy()
     }
 
@@ -67,42 +69,40 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.mainFragmentRecyclerViewTop.adapter = topCinemaAdapter
+        binding.mainFragmentRecyclerViewNew.adapter = newCinemaAdapter
 
-        binding.mainFragmentRecyclerView.adapter = adapter
-
-        binding.mainFragmentRecyclerView2.adapter = adapterUpcoming
-
-        viewModel.getCinemaFromLocalSource()
-
-        viewModel.liveData.observe(viewLifecycleOwner, { appState ->
+        viewModel.getCinemaLiveData().observe(viewLifecycleOwner, { appState ->
             renderData(appState)
         })
-
-        viewModel.getCinemaFromLocalSource()
+        viewModel.getData()
     }
 
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Loading -> binding.loadingLayout.show()
-            is AppState.SuccessBest -> {
+            is AppState.Success -> {
                 binding.loadingLayout.hide()
-                binding.textViewBest.text = "Лучшее"
-                binding.textViewUpcoming.text = "Скоро на экранах"
-                adapter.setCinema(appState.cinemaData)
-            }
-            is AppState.SuccessUpcoming -> {
-                binding.loadingLayout.hide()
-                adapterUpcoming.setCinema(appState.cinemaData)
+                when (appState.cinemaType) {
+                    CinemaType.TOP -> {
+                        topCinemaAdapter.setCinema(appState.cinemaDTO.results)
+                    }
+                    CinemaType.NEW -> {
+                        newCinemaAdapter.setCinema(appState.cinemaDTO.results)
+                    }
+                }
+
             }
             is AppState.Error -> {
                 binding.loadingLayout.hide()
-                binding.loadingLayout.showSnackBar(
-                    "Error: ${appState.error}",
-                    "Reload",
-                    { viewModel.getCinemaFromLocalSource() }
-                )
+                    binding.loadingLayout.showSnackBar(
+                        "Error: ${appState.error}",
+                        "Reload",
+                        { viewModel.getData() }
+                    )
             }
         }
     }
@@ -113,6 +113,6 @@ class MainFragment : Fragment() {
     }
 
     interface OnItemViewClickListener {
-        fun onItemViewClick(cinema: Cinema)
+        fun onItemViewClick(cinemaDTO: CinemaDTO.CinemaPreview)
     }
 }

@@ -6,37 +6,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewBest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="30sp"
-        tools:text="@string/firstHeader" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mainFragmentRecyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/fragment_main_recycler_item" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewUpcoming"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="30sp"
-        tools:text="@string/secondHeader" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mainFragmentRecyclerView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/fragment_upcoming_recycler_item" />
+        <TextView
+            style="@style/styleForCategoryText"
+            android:text="@string/firstHeader" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainFragmentRecyclerViewTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/recycler_item" />
+
+        <TextView
+            style="@style/styleForCategoryText"
+            android:text="@string/secondHeader" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainFragmentRecyclerViewNew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/recycler_item" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/loadingLayout"

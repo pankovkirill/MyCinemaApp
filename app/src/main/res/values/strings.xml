@@ -3,5 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="firstHeader">Лучшее</string>
-    <string name="secondHeader">Скоро на экранах</string>
+    <string name="secondHeader">Новинки</string>
+    <string name="thirdHeader">Популярные</string>
 </resources>
