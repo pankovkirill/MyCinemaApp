@@ -13,10 +13,6 @@
         <action
             android:id="@+id/action_nav_main_to_detailsFragment"
             app:destination="@id/detailsFragment" />
-
-        <action
-            android:id="@+id/action_nav_main_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -36,9 +32,10 @@
         android:name="com.example.mycinemaapp.view.details.DetailsFragment"
         tools:layout="@layout/fragment_details" />
 
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.mycinemaapp.view.details.DetailsFragment"
-        android:label="@string/title_favorite"
-        tools:layout="@layout/fragment_settings" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.mycinemaapp.view.MainActivity"
+        android:label="MainActivity"
+        tools:layout="@layout/main_activity" />
+
 </navigation>

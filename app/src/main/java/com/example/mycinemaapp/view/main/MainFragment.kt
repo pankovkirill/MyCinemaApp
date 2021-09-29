@@ -1,5 +1,6 @@
 package com.example.mycinemaapp.view.main
 
+import android.content.Context
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.example.mycinemaapp.R
@@ -17,6 +19,8 @@ import com.example.mycinemaapp.model.CinemaDTO
 import com.example.mycinemaapp.model.CinemaType
 import com.example.mycinemaapp.view.*
 import com.example.mycinemaapp.view.details.DetailsFragment
+
+private const val IS_ADULT_KEY = "LIST_OF_CINEMA_KEY"
 
 class MainFragment : Fragment() {
 
@@ -74,6 +78,10 @@ class MainFragment : Fragment() {
     }
 
     private fun renderData(appState: AppState) {
+        var adult = false
+        activity?.let {
+            adult = it.getPreferences(Context.MODE_PRIVATE).getBoolean(IS_ADULT_KEY, false)
+        }
         when (appState) {
             is AppState.Loading -> {
                 binding.mainView.hide()
@@ -84,10 +92,10 @@ class MainFragment : Fragment() {
                 binding.mainView.show()
                 when (appState.cinemaType) {
                     CinemaType.TOP -> {
-                        topCinemaAdapter.setCinema(appState.cinemaDTO.results)
+                        topCinemaAdapter.setCinema(appState.cinemaDTO.results, adult)
                     }
                     CinemaType.NEW -> {
-                        newCinemaAdapter.setCinema(appState.cinemaDTO.results)
+                        newCinemaAdapter.setCinema(appState.cinemaDTO.results, adult)
                     }
                 }
 

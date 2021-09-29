@@ -24,21 +24,21 @@ class MainViewModel(
     }
 
     private fun getCinemaByCategories(
-            observe: MutableLiveData<AppState>,
-            cinemaType: CinemaType,
+        observe: MutableLiveData<AppState>,
+        cinemaType: CinemaType,
     ) {
         val callback = object : Callback<CinemaDTO> {
             override fun onResponse(call: Call<CinemaDTO>, response: Response<CinemaDTO>) {
                 val serverResponse: CinemaDTO? = response.body()
                 observe.postValue(
-                        if (response.isSuccessful && serverResponse != null) {
-                            AppState.Success(
-                                    serverResponse,
-                                    cinemaType
-                            )
-                        } else {
-                            AppState.Error(Throwable(SERVER_ERROR))
-                        }
+                    if (response.isSuccessful && serverResponse != null) {
+                        AppState.Success(
+                            serverResponse,
+                            cinemaType
+                        )
+                    } else {
+                        AppState.Error(Throwable(SERVER_ERROR))
+                    }
                 )
             }
 

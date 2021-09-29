@@ -3,9 +3,12 @@ package com.example.mycinemaapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mycinemaapp.model.CinemaDetailsDTO
+import com.example.mycinemaapp.model.repository.LocalRepositoryImpl
 import com.example.mycinemaapp.model.repository.DetailsRepositoryImp
+import com.example.mycinemaapp.model.repository.LocalRepository
 import com.example.mycinemaapp.model.repository.RemoteDataSource
-import com.google.gson.Gson
+import com.example.mycinemaapp.app.App.Companion.getHistoryDao
+import com.example.mycinemaapp.model.Cinema
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,8 +21,9 @@ private const val SERVER_ERROR = "Ошибка сервера"
 private const val REQUEST_ERROR = "Ошибка запроса на сервер"
 
 class DetailsViewModel(
-        val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
-        private val detailsRepositoryImp: DetailsRepositoryImp = DetailsRepositoryImp(RemoteDataSource()),
+    val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
+    private val detailsRepositoryImp: DetailsRepositoryImp = DetailsRepositoryImp(RemoteDataSource()),
+    private val historyRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao())
 ) : ViewModel() {
 
     fun getCinema(id: Int) {
@@ -27,16 +31,23 @@ class DetailsViewModel(
         detailsRepositoryImp.getCinemaDetailsFromServer(id, callback)
     }
 
+    fun saveFilmToDB(cinema: Cinema) {
+        historyRepository.saveEntity(cinema)
+    }
+
     private val callback = object : Callback<CinemaDetailsDTO> {
         @Throws(IOException::class)
-        override fun onResponse(call: Call<CinemaDetailsDTO>, response: Response<CinemaDetailsDTO>) {
+        override fun onResponse(
+            call: Call<CinemaDetailsDTO>,
+            response: Response<CinemaDetailsDTO>
+        ) {
             val serverResponse: CinemaDetailsDTO? = response.body()
             detailsLiveData.postValue(
-                    if (response.isSuccessful && serverResponse != null) {
-                        checkResponse(serverResponse)
-                    } else {
-                        AppState.Error(Throwable(SERVER_ERROR))
-                    }
+                if (response.isSuccessful && serverResponse != null) {
+                    checkResponse(serverResponse)
+                } else {
+                    AppState.Error(Throwable(SERVER_ERROR))
+                }
             )
         }
 

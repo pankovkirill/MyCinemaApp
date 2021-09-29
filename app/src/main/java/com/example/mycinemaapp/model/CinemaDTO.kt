@@ -13,7 +13,7 @@ data class CinemaDTO(
     @Parcelize
     data class CinemaPreview(
         val adult: Boolean = false,
-        val id: Int =1,
+        val id: Int = 1,
         val release_date: String = "",
         val title: String = "",
         val vote_average: Float = 0.0F,

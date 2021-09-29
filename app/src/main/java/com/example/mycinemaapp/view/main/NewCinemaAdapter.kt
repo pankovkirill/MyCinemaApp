@@ -15,9 +15,10 @@ import com.example.mycinemaapp.model.CinemaDTO
 
 class NewCinemaAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?) :
     RecyclerView.Adapter<NewCinemaAdapter.NewViewHolder>() {
-
+    private var adultContent = false
     private var cinemaData: List<CinemaDTO.CinemaPreview> = listOf()
-    fun setCinema(data: List<CinemaDTO.CinemaPreview>) {
+    fun setCinema(data: List<CinemaDTO.CinemaPreview>, adult: Boolean) {
+        adultContent = adult
         cinemaData = data
         notifyDataSetChanged()
     }
@@ -37,27 +38,48 @@ class NewCinemaAdapter(private var onItemViewClickListener: MainFragment.OnItemV
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: NewViewHolder, position: Int) {
-        holder.bind(cinemaData[position])
+        holder.bind(cinemaData[position], adultContent)
     }
 
     override fun getItemCount(): Int = cinemaData.size
 
     inner class NewViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         @RequiresApi(Build.VERSION_CODES.N)
-        fun bind(cinemaDTO: CinemaDTO.CinemaPreview) {
-            if (!cinemaDTO.adult) {
-                itemView.apply {
-                    findViewById<TextView>(R.id.recyclerItemFilm).text = cinemaDTO.title
-                    findViewById<TextView>(R.id.recyclerItemDate).text =
-                        cinemaDTO.release_date.substringBefore("-")
-                    findViewById<TextView>(R.id.recyclerItemAverage).text =
-                        cinemaDTO.vote_average.toString()
-                    findViewById<ImageView>(R.id.imageView).load("https://image.tmdb.org/t/p/w500/${cinemaDTO.poster_path}")
-                    setOnClickListener {
-                        onItemViewClickListener?.onItemViewClick(cinemaDTO)
-                    }
+        fun bind(cinemaDTO: CinemaDTO.CinemaPreview, adult: Boolean) {
+            if (adult)
+                showContent(itemView, cinemaDTO)
+            else
+                showAdultContent(itemView, cinemaDTO)
+        }
+    }
+
+    private fun showAdultContent(itemView: View, cinemaDTO: CinemaDTO.CinemaPreview) {
+        if (!cinemaDTO.adult) {
+            itemView.apply {
+                findViewById<TextView>(R.id.recyclerItemFilm).text = cinemaDTO.title
+                findViewById<TextView>(R.id.recyclerItemDate).text =
+                    cinemaDTO.release_date.substringBefore("-")
+                findViewById<TextView>(R.id.recyclerItemAverage).text =
+                    cinemaDTO.vote_average.toString()
+                findViewById<ImageView>(R.id.imageView).load("https://image.tmdb.org/t/p/w500/${cinemaDTO.poster_path}")
+                setOnClickListener {
+                    onItemViewClickListener?.onItemViewClick(cinemaDTO)
                 }
-            } else itemView.visibility = View.GONE
+            }
+        } else itemView.visibility = View.GONE
+    }
+
+    private fun showContent(itemView: View, cinemaDTO: CinemaDTO.CinemaPreview) {
+        itemView.apply {
+            findViewById<TextView>(R.id.recyclerItemFilm).text = cinemaDTO.title
+            findViewById<TextView>(R.id.recyclerItemDate).text =
+                cinemaDTO.release_date.substringBefore("-")
+            findViewById<TextView>(R.id.recyclerItemAverage).text =
+                cinemaDTO.vote_average.toString()
+            findViewById<ImageView>(R.id.imageView).load("https://image.tmdb.org/t/p/w500/${cinemaDTO.poster_path}")
+            setOnClickListener {
+                onItemViewClickListener?.onItemViewClick(cinemaDTO)
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ fun View.show() {
     this.visibility = View.VISIBLE
 }
 
-fun  View.hide() {
+fun View.hide() {
     this.visibility = View.GONE
 }
 
@@ -21,7 +21,8 @@ fun View.showSnackBar(
         .make(
             this,
             text,
-           length)
+            length
+        )
         .setAction(actionText) { action(this) }
         .show()
 }

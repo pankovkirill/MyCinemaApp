@@ -31,7 +31,9 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_search, R.id.navigation_favorite
+                R.id.navigation_home,
+                R.id.navigation_search,
+                R.id.navigation_favorite
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -48,16 +50,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
-            R.id.setting -> {
-//                supportFragmentManager?.apply {
-//                    beginTransaction()
-//                        .replace(R.id.container, SettingsFragment())
-//                        .addToBackStack("")
-//                        .commitAllowingStateLoss()
+            R.id.navigation_setting -> {
+                supportFragmentManager?.apply {
+                    beginTransaction()
+                        .replace(R.id.nav_host_fragment_activity_main, SettingsFragment())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
 
-                    supportFragmentManager.let {
-                        val navController = findNavController(R.id.action_nav_main_to_settingsFragment)
-                        navController.navigate(R.id.detailsFragment)
+
+//                    supportFragmentManager.let {
+//                        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+//                        navController.navigate(R.id.detailsFragment)
                 }
             }
         }

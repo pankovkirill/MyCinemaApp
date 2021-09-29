@@ -14,12 +14,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RemoteDataSource {
     private val cinemaApi = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/")
-            .addConverterFactory(
-                    GsonConverterFactory.create(GsonBuilder().setLenient().create())
-            )
-            .build()
-            .create(CinemaAPI::class.java)
+        .baseUrl("https://api.themoviedb.org/")
+        .addConverterFactory(
+            GsonConverterFactory.create(GsonBuilder().setLenient().create())
+        )
+        .build()
+        .create(CinemaAPI::class.java)
 
     fun getCinemaDetails(id: Int, callback: Callback<CinemaDetailsDTO>) {
         cinemaApi.getCinema(id, BuildConfig.API_KEY, "ru-RU", "ru").enqueue(callback)

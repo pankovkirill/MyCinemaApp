@@ -6,106 +6,139 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp">
+
     <LinearLayout
         android:id="@+id/mainView"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        tools:text="Бегущий в лабиринте" />
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            tools:text="Бегущий в лабиринте" />
 
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/detailsFragmentImageView"
-            android:layout_width="200dp"
-            android:layout_height="301dp"
-            android:layout_gravity="start"
-            tools:src="@drawable/empty" />
 
         <LinearLayout
-            android:layout_width="166dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
 
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textViewReleaseDate"
-                style="@style/styleForDetailFragmentTextDescription"
-                tools:text="2021" />
+            <ImageView
+                android:id="@+id/detailsFragmentImageView"
+                android:layout_width="200dp"
+                android:layout_height="301dp"
+                android:layout_gravity="start"
+                tools:src="@drawable/empty" />
 
-            <TextView
-                android:id="@+id/textViewOriginCountry"
-                style="@style/styleForDetailFragmentTextDescription"
-                tools:text="USA" />
+            <LinearLayout
+                android:layout_width="166dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
 
-            <TextView
-                android:id="@+id/textViewGenre"
-                style="@style/styleForDetailFragmentTextDescription"
-                tools:text="Драмма" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewAverage"
-                style="@style/styleForDetailFragmentTextDescription"
-                app:drawableStartCompat="@drawable/ic_rating_star"
-                tools:text="8.8" />
+                <TextView
+                    android:id="@+id/textViewReleaseDate"
+                    style="@style/styleForDetailFragmentTextDescription"
+                    tools:text="2021" />
 
-            <TextView
-                android:id="@+id/textViewRuntime"
-                style="@style/styleForDetailFragmentTextDescription"
-                tools:text="2.40" />
+                <TextView
+                    android:id="@+id/textViewOriginCountry"
+                    style="@style/styleForDetailFragmentTextDescription"
+                    tools:text="USA" />
 
-            <TextView
-                android:id="@+id/textViewCompany"
-                style="@style/styleForDetailFragmentTextDescription"
-                tools:text="20th Century Fox" />
+                <TextView
+                    android:id="@+id/textViewGenre"
+                    style="@style/styleForDetailFragmentTextDescription"
+                    tools:text="Драмма" />
 
-            <TextView
-                android:id="@+id/textViewRevenue"
-                style="@style/styleForDetailFragmentTextDescription"
-                tools:text="80 000 000 $" />
+                <TextView
+                    android:id="@+id/textViewAverage"
+                    style="@style/styleForDetailFragmentTextDescription"
+                    app:drawableStartCompat="@drawable/ic_rating_star"
+                    tools:text="8.8" />
 
-            <TextView
-                android:id="@+id/textViewBudget"
-                style="@style/styleForDetailFragmentTextDescription"
-                tools:text="80 000 000 $" />
+                <TextView
+                    android:id="@+id/textViewRuntime"
+                    style="@style/styleForDetailFragmentTextDescription"
+                    tools:text="2.40" />
+
+                <TextView
+                    android:id="@+id/textViewCompany"
+                    style="@style/styleForDetailFragmentTextDescription"
+                    tools:text="20th Century Fox" />
+
+                <TextView
+                    android:id="@+id/textViewRevenue"
+                    style="@style/styleForDetailFragmentTextDescription"
+                    tools:text="80 000 000 $" />
+
+                <TextView
+                    android:id="@+id/textViewBudget"
+                    style="@style/styleForDetailFragmentTextDescription"
+                    tools:text="80 000 000 $" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
 
-            <TextView
-                android:id="@+id/detailsFragmentDescription"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                tools:text="Описание" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/detailsFragmentSendNote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:text="@string/send_note"
+                    android:textSize="20sp" />
+
+                <CheckBox
+                    android:id="@+id/saveFilm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:button="@drawable/checkbox_selector"
+                    android:paddingLeft="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <TextView
+                    android:id="@+id/detailsFragmentDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    tools:text="Описание" />
+            </ScrollView>
 
         </LinearLayout>
-    </ScrollView>
     </LinearLayout>
 
     <FrameLayout
