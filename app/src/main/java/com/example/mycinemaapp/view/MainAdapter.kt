@@ -43,13 +43,14 @@ class MainAdapter(private var onItemViewClickListener: MainFragment.OnItemViewCl
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(cinema: Cinema) {
-            itemView.findViewById<TextView>(R.id.recyclerItemFilm).text = cinema.film.film
-            itemView.findViewById<TextView>(R.id.recyclerItemRating).text = cinema.rating.toString()
-
-            itemView.setOnClickListener {
-                onItemViewClickListener?.onItemViewClick(cinema)
+            itemView.apply {
+                findViewById<TextView>(R.id.recyclerItemFilm).text = cinema.film.film
+                findViewById<TextView>(R.id.recyclerItemRating).text = cinema.rating.toString()
+                findViewById<ImageView>(R.id.imageView).setImageResource(cinema.film.filmImage)
+                setOnClickListener {
+                    onItemViewClickListener?.onItemViewClick(cinema)
+                }
             }
         }
-
     }
 }

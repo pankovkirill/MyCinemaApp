@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <TextView
-        android:text="@string/firstHeader"
-        android:textSize="30sp"
-        android:layout_margin="5dp"
+        android:id="@+id/textViewBest"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="30sp"
+        tools:text="@string/firstHeader" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainFragmentRecyclerView"
@@ -21,11 +23,12 @@
         tools:listitem="@layout/fragment_main_recycler_item" />
 
     <TextView
-        android:text="@string/secondHeader"
-        android:textSize="30sp"
-        android:layout_margin="5dp"
+        android:id="@+id/textViewUpcoming"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="30sp"
+        tools:text="@string/secondHeader" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainFragmentRecyclerView2"
@@ -47,10 +50,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </FrameLayout>
 </LinearLayout>

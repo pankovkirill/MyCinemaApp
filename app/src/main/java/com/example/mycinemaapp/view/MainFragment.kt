@@ -20,18 +20,19 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
     private val adapter = MainAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(cinema: Cinema) {
-            val manager = activity?.supportFragmentManager
-            if (manager != null) {
-                val bundle = Bundle()
-                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cinema)
-                manager.beginTransaction()
-                    .replace(R.id.container, DetailsFragment.newInstance(bundle))
+            activity?.supportFragmentManager?.apply {
+                beginTransaction()
+                    .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
+                        putParcelable(DetailsFragment.BUNDLE_EXTRA, cinema)
+                    }))
                     .addToBackStack("")
                     .commitAllowingStateLoss()
             }
@@ -40,12 +41,11 @@ class MainFragment : Fragment() {
 
     private val adapterUpcoming = UpcomingAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(cinema: Cinema) {
-            val manager = activity?.supportFragmentManager
-            if (manager != null) {
-                val bundle = Bundle()
-                bundle.putParcelable(DetailsFragment.BUNDLE_EXTRA, cinema)
-                manager.beginTransaction()
-                    .replace(R.id.container, DetailsFragment.newInstance(bundle))
+            activity?.supportFragmentManager?.apply {
+                beginTransaction()
+                    .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
+                        putParcelable(DetailsFragment.BUNDLE_EXTRA, cinema)
+                    }))
                     .addToBackStack("")
                     .commitAllowingStateLoss()
             }
@@ -74,7 +74,7 @@ class MainFragment : Fragment() {
 
         binding.mainFragmentRecyclerView2.adapter = adapterUpcoming
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.getCinemaFromLocalSource()
 
         viewModel.liveData.observe(viewLifecycleOwner, { appState ->
             renderData(appState)
@@ -85,21 +85,24 @@ class MainFragment : Fragment() {
 
     private fun renderData(appState: AppState) {
         when (appState) {
-            is AppState.Loading -> binding.loadingLayout.visibility = View.VISIBLE
+            is AppState.Loading -> binding.loadingLayout.show()
             is AppState.SuccessBest -> {
-                binding.loadingLayout.visibility = View.GONE
+                binding.loadingLayout.hide()
+                binding.textViewBest.text = "Лучшее"
+                binding.textViewUpcoming.text = "Скоро на экранах"
                 adapter.setCinema(appState.cinemaData)
             }
             is AppState.SuccessUpcoming -> {
-                binding.loadingLayout.visibility = View.GONE
+                binding.loadingLayout.hide()
                 adapterUpcoming.setCinema(appState.cinemaData)
             }
             is AppState.Error -> {
-                binding.loadingLayout.visibility = View.GONE
-                Snackbar
-                    .make(binding.mainFragmentRecyclerView, "Error", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Reload") { viewModel.getCinemaFromLocalSource() }
-                    .show()
+                binding.loadingLayout.hide()
+                binding.loadingLayout.showSnackBar(
+                    "Error: ${appState.error}",
+                    "Reload",
+                    { viewModel.getCinemaFromLocalSource() }
+                )
             }
         }
     }
