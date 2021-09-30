@@ -6,12 +6,12 @@ import com.example.mycinemaapp.app.App.Companion.getHistoryDao
 import com.example.mycinemaapp.model.repository.LocalRepositoryImpl
 import com.example.mycinemaapp.model.repository.LocalRepository
 
-class HistoryViewModel(
-    val historyLiveData: MutableLiveData<AppState> = MutableLiveData(),
-    private val historyRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao())
+class FavoriteViewModel(
+    val favoriteLiveData: MutableLiveData<AppState> = MutableLiveData(),
+    private val favoriteRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao())
 ) : ViewModel() {
     fun getAllHistory() {
-        historyLiveData.value = AppState.Loading
-        historyLiveData.value = AppState.SuccessDetailsHistory(historyRepository.getAllHistory())
+        favoriteLiveData.value = AppState.Loading
+        favoriteLiveData.value = AppState.SuccessFavorite(favoriteRepository.getAllHistory())
     }
 }

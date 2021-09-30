@@ -3,6 +3,7 @@
     package="com.example.mycinemaapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name="com.example.mycinemaapp.app.App"
