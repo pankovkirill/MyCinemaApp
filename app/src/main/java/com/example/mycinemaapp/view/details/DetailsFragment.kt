@@ -62,23 +62,30 @@ class DetailsFragment(
     }
 
     private fun renderData(appState: AppState) {
+
         when (appState) {
             is AppState.SuccessDetails -> {
-                binding.mainView.show()
-                binding.loadingLayout.hide()
+                with(binding) {
+                    mainView.show()
+                    loadingLayout.hide()
+                }
                 setWeather(appState.cinemaDetailsDTO)
             }
             is AppState.Loading -> {
-                binding.mainView.hide()
-                binding.loadingLayout.show()
+                with(binding) {
+                    mainView.hide()
+                    loadingLayout.show()
+                }
             }
             is AppState.Error -> {
-                binding.mainView.hide()
-                binding.loadingLayout.show()
-                binding.mainView.showSnackBar(
-                    getString(R.string.error),
-                    getString(R.string.reload),
-                    { viewModel.getCinema(cinemaBundle.id) })
+                with(binding) {
+                    mainView.hide()
+                    loadingLayout.show()
+                    mainView.showSnackBar(
+                        getString(R.string.error),
+                        getString(R.string.reload),
+                        { viewModel.getCinema(cinemaBundle.id) })
+                }
             }
         }
     }

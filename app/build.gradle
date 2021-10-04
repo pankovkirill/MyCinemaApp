@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 apply plugin: 'kotlin-android-extensions'
@@ -49,8 +50,13 @@ android {
 }
 
 dependencies {
+
+    //map
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
     //Room
     implementation 'androidx.room:room-runtime:2.3.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     kapt 'androidx.room:room-compiler:2.3.0'
 
 

@@ -12,6 +12,9 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+private const val REGION = "ru-RU"
+private const val LANGUAGE = "ru"
+
 class RemoteDataSource {
     private val cinemaApi = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/")
@@ -22,14 +25,14 @@ class RemoteDataSource {
         .create(CinemaAPI::class.java)
 
     fun getCinemaDetails(id: Int, callback: Callback<CinemaDetailsDTO>) {
-        cinemaApi.getCinema(id, BuildConfig.API_KEY, "ru-RU", "ru").enqueue(callback)
+        cinemaApi.getCinema(id, BuildConfig.API_KEY, REGION, LANGUAGE).enqueue(callback)
     }
 
     fun getTopCinema(page: Int, callback: Callback<CinemaDTO>) {
-        cinemaApi.getTopCinema(BuildConfig.API_KEY, "ru-RU", "ru", page).enqueue(callback)
+        cinemaApi.getTopCinema(BuildConfig.API_KEY, REGION, LANGUAGE, page).enqueue(callback)
     }
 
     fun getNewCinema(page: Int, callback: Callback<CinemaDTO>) {
-        cinemaApi.getNewCinema(BuildConfig.API_KEY, "ru-RU", "ru", page).enqueue(callback)
+        cinemaApi.getNewCinema(BuildConfig.API_KEY, REGION, LANGUAGE, page).enqueue(callback)
     }
 }
