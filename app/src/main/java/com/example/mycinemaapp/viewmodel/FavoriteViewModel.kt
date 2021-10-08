@@ -3,8 +3,8 @@ package com.example.mycinemaapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mycinemaapp.app.App.Companion.getHistoryDao
-import com.example.mycinemaapp.model.repository.LocalRepositoryImpl
-import com.example.mycinemaapp.model.repository.LocalRepository
+import com.example.mycinemaapp.model.repository.room.LocalRepositoryImpl
+import com.example.mycinemaapp.model.repository.room.LocalRepository
 
 class FavoriteViewModel(
     val favoriteLiveData: MutableLiveData<AppState> = MutableLiveData(),

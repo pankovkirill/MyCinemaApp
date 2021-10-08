@@ -1,11 +1,9 @@
-package com.example.mycinemaapp.model.repository
+package com.example.mycinemaapp.model.repository.retrofit
 
-import android.graphics.Region
 import com.example.mycinemaapp.BuildConfig
 import com.example.mycinemaapp.model.CinemaDTO
 import com.example.mycinemaapp.model.CinemaDetailsDTO
 import com.google.gson.GsonBuilder
-import org.intellij.lang.annotations.Language
 import retrofit2.Callback
 
 

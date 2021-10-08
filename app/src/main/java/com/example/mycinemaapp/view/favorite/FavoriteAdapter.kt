@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.favorite
 
 import android.view.LayoutInflater
 import android.view.View
@@ -21,14 +21,14 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.RecyclerItemViewHol
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FavoriteAdapter.RecyclerItemViewHolder {
+    ): RecyclerItemViewHolder {
         return RecyclerItemViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.recycler_favorite_item, parent, false) as View
         )
     }
 
-    override fun onBindViewHolder(holder: FavoriteAdapter.RecyclerItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
         holder.bind(data[position])
     }
 

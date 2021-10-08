@@ -13,8 +13,8 @@ import com.example.mycinemaapp.R
 import com.example.mycinemaapp.databinding.FragmentDetailsBinding
 import com.example.mycinemaapp.model.*
 import com.example.mycinemaapp.app.App
-import com.example.mycinemaapp.model.repository.LocalRepository
-import com.example.mycinemaapp.model.repository.LocalRepositoryImpl
+import com.example.mycinemaapp.model.repository.room.LocalRepository
+import com.example.mycinemaapp.model.repository.room.LocalRepositoryImpl
 import com.example.mycinemaapp.view.hide
 import com.example.mycinemaapp.view.show
 import com.example.mycinemaapp.view.showSnackBar
@@ -91,7 +91,14 @@ class DetailsFragment(
     }
 
     private fun setWeather(cinemaDetailsDTO: CinemaDetailsDTO) {
-        binding.saveFilm.isChecked = !favoriteRepository.getDataByFilm(cinemaDetailsDTO.title)
+        if (!favoriteRepository.getDataByFilm(cinemaDetailsDTO.title)) {
+            binding.saveFilm.isChecked = true
+            binding.detailsFragmentSendNote.setText(
+                favoriteRepository.getNoteByFilm(
+                    cinemaDetailsDTO.title
+                )
+            )
+        }
         with(binding) {
             data = cinemaDetailsDTO
             mainView.show()

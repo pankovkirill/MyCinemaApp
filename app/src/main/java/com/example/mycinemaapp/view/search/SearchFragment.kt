@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.search
 
 import android.content.Context
 import android.os.Build
@@ -10,15 +10,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.example.mycinemaapp.R
 import com.example.mycinemaapp.databinding.FragmentSearchBinding
 import com.example.mycinemaapp.viewmodel.AppState
 import com.example.mycinemaapp.model.CinemaDTO
-import com.example.mycinemaapp.model.repository.Repository
 import com.example.mycinemaapp.view.details.DetailsFragment
+import com.example.mycinemaapp.view.hide
+import com.example.mycinemaapp.view.show
+import com.example.mycinemaapp.view.showSnackBar
 import com.example.mycinemaapp.viewmodel.SearchViewModel
 
 private const val IS_ADULT_KEY = "LIST_OF_CINEMA_KEY"

@@ -1,8 +1,7 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.maps
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import androidx.fragment.app.Fragment
@@ -14,7 +13,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.example.mycinemaapp.R
 import com.example.mycinemaapp.databinding.FragmentMapsBinding
-import com.example.mycinemaapp.databinding.FragmentSearchBinding
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

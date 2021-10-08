@@ -1,6 +1,7 @@
-package com.example.mycinemaapp.model.repository
+package com.example.mycinemaapp.model.repository.details
 
 import com.example.mycinemaapp.model.CinemaDetailsDTO
+import com.example.mycinemaapp.model.repository.retrofit.RemoteDataSource
 import retrofit2.Callback
 
 

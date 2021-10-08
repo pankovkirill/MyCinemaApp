@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mycinemaapp.databinding.FragmentFavoriteBinding
+import com.example.mycinemaapp.view.hide
+import com.example.mycinemaapp.view.show
+import com.example.mycinemaapp.view.showSnackBar
 import com.example.mycinemaapp.viewmodel.AppState
 import com.example.mycinemaapp.viewmodel.FavoriteViewModel
 import kotlinx.android.synthetic.main.fragment_favorite.*
