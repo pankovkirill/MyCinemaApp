@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.model.repository
+package com.example.mycinemaapp.model.repository.room
 
 import com.example.mycinemaapp.model.Cinema
 import com.example.mycinemaapp.model.dataBase.HistoryDao
@@ -14,6 +14,11 @@ class LocalRepositoryImpl(private val localDataSource: HistoryDao) : LocalReposi
     override fun getDataByFilm(film: String): Boolean {
         val entity: List<HistoryEntity> = localDataSource.getDataByFilm(film)
         return entity.isEmpty()
+    }
+
+    override fun getNoteByFilm(film: String): String {
+        val entity: HistoryEntity = localDataSource.getNoteByFilm(film)
+        return entity.note
     }
 
     override fun saveEntity(cinema: Cinema) {

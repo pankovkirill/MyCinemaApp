@@ -3,9 +3,8 @@ package com.example.mycinemaapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mycinemaapp.model.*
-import com.example.mycinemaapp.model.repository.RemoteDataSource
-import com.example.mycinemaapp.model.repository.Repository
-import com.example.mycinemaapp.model.repository.RepositoryImpl
+import com.example.mycinemaapp.model.repository.retrofit.RemoteDataSource
+import com.example.mycinemaapp.model.repository.main.RepositoryImpl
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback

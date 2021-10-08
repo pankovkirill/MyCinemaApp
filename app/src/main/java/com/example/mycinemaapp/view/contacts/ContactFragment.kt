@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.contacts
 
 import android.Manifest
 import android.content.Context

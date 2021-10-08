@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.search
 
 import android.os.Build
 import android.view.LayoutInflater

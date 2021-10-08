@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.model.repository
+package com.example.mycinemaapp.model.repository.retrofit
 
 import com.example.mycinemaapp.BuildConfig
 import com.example.mycinemaapp.model.CinemaDTO

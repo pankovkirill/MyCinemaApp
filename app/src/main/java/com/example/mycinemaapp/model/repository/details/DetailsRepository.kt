@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.model.repository
+package com.example.mycinemaapp.model.repository.details
 
 import com.example.mycinemaapp.model.CinemaDetailsDTO
 import retrofit2.Callback

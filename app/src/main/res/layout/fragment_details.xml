@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -17,8 +18,8 @@
             android:id="@+id/textViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
             android:textColor="@color/black"
+            android:textSize="30sp"
             tools:text="Бегущий в лабиринте" />
 
 
@@ -115,12 +116,12 @@
                     android:id="@+id/saveFilm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:button="@drawable/checkbox_selector"
-                    android:paddingLeft="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:paddingLeft="10dp" />
 
             </LinearLayout>
 
@@ -133,8 +134,8 @@
                     android:id="@+id/detailsFragmentDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
+                    android:textSize="20sp"
                     tools:text="Описание" />
             </ScrollView>
 

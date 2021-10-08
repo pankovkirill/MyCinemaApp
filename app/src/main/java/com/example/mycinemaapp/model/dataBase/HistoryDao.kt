@@ -10,6 +10,9 @@ interface HistoryDao {
     @Query("SELECT * FROM HistoryEntity WHERE film LIKE :film")
     fun getDataByFilm(film: String): List<HistoryEntity>
 
+    @Query("SELECT * FROM HistoryEntity WHERE film LIKE :film")
+    fun getNoteByFilm(film: String): HistoryEntity
+
     @Query("DELETE FROM HistoryEntity WHERE film =:film")
     fun deleteById(film: String)
 

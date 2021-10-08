@@ -1,4 +1,4 @@
-package com.example.mycinemaapp.view
+package com.example.mycinemaapp.view.settings
 
 import android.content.Context
 import android.os.Bundle
@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.mycinemaapp.databinding.FragmentSettingsBinding
 import com.example.mycinemaapp.app.App
-import com.example.mycinemaapp.model.repository.LocalRepository
-import com.example.mycinemaapp.model.repository.LocalRepositoryImpl
+import com.example.mycinemaapp.model.repository.room.LocalRepository
+import com.example.mycinemaapp.model.repository.room.LocalRepositoryImpl
 
 private const val IS_ADULT_KEY = "LIST_OF_CINEMA_KEY"
 
@@ -24,7 +24,7 @@ class SettingsFragment(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
