@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.example.mycinemaapp.R
 import com.example.mycinemaapp.model.CinemaDTO
 
@@ -49,7 +50,8 @@ class TopCinemaAdapter(private var onItemViewClickListener: MainFragment.OnItemV
                     cinemaDTO.release_date?.substringBefore("-")
                 findViewById<TextView>(R.id.recyclerItemAverage).text =
                     cinemaDTO.vote_average.toString()
-                findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.empty)
+                findViewById<ImageView>(R.id.imageView).load("https://image.tmdb.org/t/p/w500/${cinemaDTO.poster_path}")
+
                 setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(cinemaDTO)
                 }

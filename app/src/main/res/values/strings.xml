@@ -5,4 +5,8 @@
     <string name="firstHeader">Лучшее</string>
     <string name="secondHeader">Новинки</string>
     <string name="thirdHeader">Популярные</string>
+    <string name="main">Главная</string>
+    <string name="favorite">Коллекция</string>
+    <string name="error">Ошибка</string>
+    <string name="reload">Повторить</string>
 </resources>

@@ -21,7 +21,7 @@ fun View.showSnackBar(
         .make(
             this,
             text,
-            Snackbar.LENGTH_INDEFINITE)
+           length)
         .setAction(actionText) { action(this) }
         .show()
 }

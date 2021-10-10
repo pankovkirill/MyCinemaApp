@@ -16,5 +16,6 @@ data class CinemaDTO(
         val release_date: String = "",
         val title: String = "",
         val vote_average: Float = 0.0F,
+        val poster_path: String = ""
     ) : Parcelable
 }

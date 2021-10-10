@@ -32,11 +32,11 @@ class MainFragment : Fragment() {
         override fun onItemViewClick(cinemaDTO: CinemaDTO.CinemaPreview) {
             activity?.supportFragmentManager?.apply {
                 beginTransaction()
-                    .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-                        putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
-                    }))
-                    .addToBackStack("")
-                    .commitAllowingStateLoss()
+                        .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
+                            putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
+                        }))
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
             }
         }
     })
@@ -45,11 +45,11 @@ class MainFragment : Fragment() {
         override fun onItemViewClick(cinemaDTO: CinemaDTO.CinemaPreview) {
             activity?.supportFragmentManager?.apply {
                 beginTransaction()
-                    .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-                        putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
-                    }))
-                    .addToBackStack("")
-                    .commitAllowingStateLoss()
+                        .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
+                            putParcelable(DetailsFragment.BUNDLE_EXTRA, cinemaDTO)
+                        }))
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
             }
         }
     })
@@ -61,9 +61,9 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?,
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -75,17 +75,20 @@ class MainFragment : Fragment() {
         binding.mainFragmentRecyclerViewTop.adapter = topCinemaAdapter
         binding.mainFragmentRecyclerViewNew.adapter = newCinemaAdapter
 
-        viewModel.getCinemaLiveData().observe(viewLifecycleOwner, { appState ->
-            renderData(appState)
-        })
-        viewModel.getData()
+        viewModel.topCinemaToObserve.observe(viewLifecycleOwner, {renderData(it)})
+        viewModel.newCinemaToObserve.observe(viewLifecycleOwner, {renderData(it)})
+        viewModel.getCinema()
     }
 
     private fun renderData(appState: AppState) {
         when (appState) {
-            is AppState.Loading -> binding.loadingLayout.show()
+            is AppState.Loading -> {
+                binding.mainView.hide()
+                binding.loadingLayout.show()
+            }
             is AppState.Success -> {
                 binding.loadingLayout.hide()
+                binding.mainView.show()
                 when (appState.cinemaType) {
                     CinemaType.TOP -> {
                         topCinemaAdapter.setCinema(appState.cinemaDTO.results)
@@ -97,12 +100,13 @@ class MainFragment : Fragment() {
 
             }
             is AppState.Error -> {
-                binding.loadingLayout.hide()
-                    binding.loadingLayout.showSnackBar(
+                binding.mainView.hide()
+                binding.loadingLayout.show()
+                binding.loadingLayout.showSnackBar(
                         "Error: ${appState.error}",
                         "Reload",
-                        { viewModel.getData() }
-                    )
+                        { viewModel.getCinema() }
+                )
             }
         }
     }
