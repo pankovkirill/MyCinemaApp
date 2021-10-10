@@ -15,7 +15,7 @@ import com.example.mycinemaapp.model.repository.LocalRepositoryImpl
 private const val IS_ADULT_KEY = "LIST_OF_CINEMA_KEY"
 
 class SettingsFragment(
-    private val historyRepository: LocalRepository = LocalRepositoryImpl(App.getHistoryDao())
+    private val favoriteRepository: LocalRepository = LocalRepositoryImpl(App.getHistoryDao())
 ) : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
@@ -38,7 +38,7 @@ class SettingsFragment(
 
     private fun isCleanDb() {
         binding.clearHistory.setOnClickListener {
-            historyRepository.deleteAll()
+            favoriteRepository.deleteAll()
             Toast.makeText(
                 requireActivity(),
                 "Список любимых фильмов очищен",

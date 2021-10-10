@@ -49,18 +49,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item?.itemId) {
+        when (item.itemId) {
             R.id.navigation_setting -> {
-                supportFragmentManager?.apply {
+                supportFragmentManager.apply {
                     beginTransaction()
                         .replace(R.id.nav_host_fragment_activity_main, SettingsFragment())
                         .addToBackStack("")
                         .commitAllowingStateLoss()
+                }
+            }
 
-
-//                    supportFragmentManager.let {
-//                        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-//                        navController.navigate(R.id.detailsFragment)
+            R.id.navigation_contact ->{
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .replace(R.id.nav_host_fragment_activity_main, ContactFragment())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
                 }
             }
         }

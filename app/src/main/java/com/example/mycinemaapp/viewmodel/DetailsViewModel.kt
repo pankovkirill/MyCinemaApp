@@ -23,7 +23,7 @@ private const val REQUEST_ERROR = "Ошибка запроса на сервер
 class DetailsViewModel(
     val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
     private val detailsRepositoryImp: DetailsRepositoryImp = DetailsRepositoryImp(RemoteDataSource()),
-    private val historyRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao())
+    private val favoriteRepository: LocalRepository = LocalRepositoryImpl(getHistoryDao())
 ) : ViewModel() {
 
     fun getCinema(id: Int) {
@@ -32,7 +32,7 @@ class DetailsViewModel(
     }
 
     fun saveFilmToDB(cinema: Cinema) {
-        historyRepository.saveEntity(cinema)
+        favoriteRepository.saveEntity(cinema)
     }
 
     private val callback = object : Callback<CinemaDetailsDTO> {

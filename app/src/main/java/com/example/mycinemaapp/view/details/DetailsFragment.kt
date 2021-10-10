@@ -23,13 +23,13 @@ import com.example.mycinemaapp.viewmodel.AppState
 import com.example.mycinemaapp.viewmodel.DetailsViewModel
 
 class DetailsFragment(
-    private val historyRepository: LocalRepository = LocalRepositoryImpl(App.getHistoryDao())
+    private val favoriteRepository: LocalRepository = LocalRepositoryImpl(App.getHistoryDao())
 ) : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (binding.saveFilm.isChecked)
             onClick(data)
         else
-            historyRepository.delete(data.title)
+            favoriteRepository.delete(data.title)
     }
 
     private lateinit var data: CinemaDetailsDTO
@@ -84,7 +84,7 @@ class DetailsFragment(
     }
 
     private fun setWeather(cinemaDetailsDTO: CinemaDetailsDTO) {
-        binding.saveFilm.isChecked = !historyRepository.getDataByFilm(cinemaDetailsDTO.title)
+        binding.saveFilm.isChecked = !favoriteRepository.getDataByFilm(cinemaDetailsDTO.title)
         with(binding) {
             data = cinemaDetailsDTO
             mainView.show()

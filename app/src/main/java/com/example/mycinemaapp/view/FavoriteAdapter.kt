@@ -7,12 +7,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mycinemaapp.R
-import com.example.mycinemaapp.databinding.RecyclerItemBinding
 import com.example.mycinemaapp.model.Cinema
-import com.example.mycinemaapp.model.CinemaDTO
-import com.example.mycinemaapp.model.CinemaDetailsDTO
 
-class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {
+class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.RecyclerItemViewHolder>() {
 
     private var data: List<Cinema> = arrayListOf()
 
@@ -24,14 +21,14 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolde
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): HistoryAdapter.RecyclerItemViewHolder {
+    ): FavoriteAdapter.RecyclerItemViewHolder {
         return RecyclerItemViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycler_search_item, parent, false) as View
+                .inflate(R.layout.recycler_favorite_item, parent, false) as View
         )
     }
 
-    override fun onBindViewHolder(holder: HistoryAdapter.RecyclerItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteAdapter.RecyclerItemViewHolder, position: Int) {
         holder.bind(data[position])
     }
 
@@ -44,11 +41,11 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolde
         fun bind(data: Cinema) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 itemView.apply {
-                    findViewById<TextView>(R.id.searchItemName).text = data.film
-                    findViewById<TextView>(R.id.searchItemYear).text =
+                    findViewById<TextView>(R.id.favoriteItemName).text = data.film
+                    findViewById<TextView>(R.id.favoriteItemYear).text =
                         data.release.substringBefore("-")
-                    findViewById<TextView>(R.id.searchItemRating).text = data.average.toString()
-                    findViewById<TextView>(R.id.searchItemNote).text = data.note
+                    findViewById<TextView>(R.id.favoriteItemRating).text = data.average.toString()
+                    findViewById<TextView>(R.id.favoriteItemNote).text = data.note
                 }
                 itemView.setOnClickListener {
                     Toast.makeText(
