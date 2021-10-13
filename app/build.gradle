@@ -21,10 +21,29 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('password.properties').newDataInputStream())
+        def password = properties.getProperty("password", "")
+
         release {
+            storeFile file("keystore.jks")
+            storePassword password
+            keyAlias password
+            keyPassword password
+        }
+    }
+
+    buildTypes {
+        debug {
             minifyEnabled false
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "TYPE", '"RELEASE"'
         }
     }
     compileOptions {
@@ -40,6 +59,17 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+    flavorDimensions 'version'
+    productFlavors {
+        freeConfig {
+            dimension 'version'
+            versionNameSuffix '.free'
+        }
+        paidConfig {
+            dimension 'version'
+            versionNameSuffix '.paid'
+        }
     }
 
     buildTypes.each {
